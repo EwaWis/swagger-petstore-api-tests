@@ -29,5 +29,5 @@ jobs:
         with:
           name: Playwright API Tests
           paths: results.xml
-          reporter: java-unit
+          reporter: java-junit
           fail-on-error: true
