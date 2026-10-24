@@ -23,11 +23,11 @@ jobs:
              npm ci
              PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=list,junit
 
-      - name: Create Test Summary
+      - name: Test Report
         uses: dorny/test-reporter@v3
-        if: success() || failure()
+        if: ${{ !failure() }}       # run this step even if previous step failed
         with:
-          name: Playwright API Tests
-          paths: results.xml
-          reporter: java-junit
+          name: Playwright API Tests            # Name of the check run which will be created
+          path: results.xml    # Path to test results
+          reporter: java-junit 
           fail-on-error: true
