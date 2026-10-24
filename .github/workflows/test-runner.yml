@@ -27,4 +27,7 @@ jobs:
         uses: test-summary/action@dist
         if: success() || failure()
         with:
+          name: Playwright API Tests
           paths: results.xml
+          reporter: java-unit
+          fail-on-error: true
