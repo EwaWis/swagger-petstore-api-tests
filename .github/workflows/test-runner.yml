@@ -21,7 +21,7 @@ jobs:
       - name: Run Tests
         run: |
              npm ci
-             PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=list,junit
+             PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=list,junit,html --output=results
 
       - name: Test Report
         uses: dorny/test-reporter@v3
@@ -31,3 +31,12 @@ jobs:
           path: results.xml    # Path to test results
           reporter: java-junit 
           fail-on-error: true
+
+      - name: Upload Playwright Test Results
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: test-results
+          path: |
+                results.xml
+                playwright-report
